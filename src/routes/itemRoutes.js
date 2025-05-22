@@ -7,12 +7,15 @@ import {
   deleteItem
 } from '../controllers/itemController.js';
 
+import { validateBody } from '../middlewares/validate.js';
+import { itemSchema } from '../validation/itemValidation.js';
+
 const router = new Router();
 
 router.get('/items', getAllItems);
 router.get('/items/:id', getItemById);
-router.post('/items', createItem);
-router.put('/items/:id', updateItem);
+router.post('/items', validateBody(itemSchema), createItem);
+router.put('/items/:id', validateBody(itemSchema), updateItem);
 router.delete('/items/:id', deleteItem);
 
 export default router;
