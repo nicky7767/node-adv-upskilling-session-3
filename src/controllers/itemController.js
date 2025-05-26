@@ -1,13 +1,18 @@
-import { Item } from '../models/itemModel.js';
+import { Item } from "../models/itemModel.js";
 
 export const getAllItems = async (ctx) => {
   ctx.body = await Item.find();
 };
 
+export const healthCheck = async (ctx) => {
+  ctx.status = 200;
+  ctx.body = { status: "Ok", message: "Ok" };
+};
+
 export const getItemById = async (ctx) => {
   const item = await Item.findById(ctx.params.id);
   if (!item) {
-    ctx.throw(404, 'Item not found');
+    ctx.throw(404, "Item not found");
   }
   ctx.body = item;
 };
@@ -19,9 +24,13 @@ export const createItem = async (ctx) => {
 };
 
 export const updateItem = async (ctx) => {
-  const updatedItem = await Item.findByIdAndUpdate(ctx.params.id, ctx.request.body, { new: true });
+  const updatedItem = await Item.findByIdAndUpdate(
+    ctx.params.id,
+    ctx.request.body,
+    { new: true }
+  );
   if (!updatedItem) {
-    ctx.throw(404, 'Item not found');
+    ctx.throw(404, "Item not found");
   }
   ctx.body = updatedItem;
 };
@@ -29,7 +38,7 @@ export const updateItem = async (ctx) => {
 export const deleteItem = async (ctx) => {
   const deletedItem = await Item.findByIdAndDelete(ctx.params.id);
   if (!deletedItem) {
-    ctx.throw(404, 'Item not found');
+    ctx.throw(404, "Item not found");
   }
   ctx.status = 204;
 };

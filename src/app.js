@@ -6,7 +6,6 @@ import { logger } from './middlewares/logger.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 
 const app = new Koa();
-const PORT = 3000;
 
 connectDB();
 
@@ -19,6 +18,4 @@ app.on('error', (err, ctx) => {
   console.error('Server Error:', err.message);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:3000`);
-});
+export default app;
